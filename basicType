@@ -4,8 +4,8 @@ show tables;
 
 CREATE TABLE MEMBER (
 	member_id INT PRIMARY KEY AUTO_INCREMENT,
-	member_age CHAR(2) NOT NULL,
-	member_sex CHAR(6) NOT NULL,
+	member_age varCHAR(5) NOT NULL,
+	member_sex varCHAR(10) NOT NULL,
 	member_vac INT,
     member_date DATE
 );
