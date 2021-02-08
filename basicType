@@ -1,0 +1,24 @@
+use test1;
+show tables;
+
+
+CREATE TABLE MEMBER (
+	member_id INT PRIMARY KEY AUTO_INCREMENT,
+	member_age CHAR(2) NOT NULL,
+	member_sex CHAR(6) NOT NULL,
+	member_vac INT,
+    member_date DATE
+);
+
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("25","남성",1,"2019-01-01");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("23","여성",3,"2019-07-02");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("40","남성",2,"2019-05-03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("35","남성",4,"2019-03-04");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("36","여성",1,"2019-01-05");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("43","여성",5,"2019-02-05");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("53","남성",2,"2019-08-05");
+
+
+SELECT * FROM MEMBER;
+
+DROP TABLE MEMBER;
