@@ -1,0 +1,75 @@
+use test1;
+show tables;
+SHOW DATABASES;
+
+CREATE TABLE MEMBER (
+	member_id INT PRIMARY KEY AUTO_INCREMENT,
+	member_age VARCHAR(12) NOT NULL,
+	member_sex VARCHAR(5) NOT NULL,
+	member_vac VARCHAR(20),
+    member_date DATE
+   
+);
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("13세이하","남성","독-Free","2019-01-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("13세이하","남성","VIT-D","2019-01-02 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("13세이하","남성","코로나","2019-02-03 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("20대","남성","독+대","2019-03-04 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("30대","여성","독+프","2019-01-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("40대","여성","독+VITD","2019-02-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("50대","남성","독+대+프","2019-08-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("30대","여성","독+프","2019-11-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("40대","여성","독+VITD","2019-02-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("60~64세","남성","특별가","2019-03-05 01:02:03");
+INSERT INTO MEMBER(member_age,member_sex,member_vac,member_date) VALUES("65세이상","남성","특별가","2019-03-05 01:02:03");
+
+SELECT * FROM MEMBER;
+ALTER TABLE MEMBER MODIFY member_date TIMESTAMP;
+DROP TABLE MEMBER;
+SELECT member_id, member_age, member_sex,member_vac, CAST(member_date AS TIMESTAMP) FROM MEMBER;
+
+
+
+
+
+
+
+#연령
+SELECT * FROM MEMBER ORDER BY member_age  ASC; #나이 순서대로
+SELECT * FROM MEMBER WHERE member_age ="13세이하" ORDER BY member_id DESC;
+
+#성별
+SELECT * FROM MEMBER WHERE member_sex = '남성' ORDER BY member_id DESC; #남성만 (맨위가 최근)
+SELECT * FROM MEMBER WHERE member_sex = '여성' ORDER BY member_id DESC; #여성만(맨위가 최근)
+
+#백신
+SELECT * FROM MEMBER WHEREW member_vac ="코로나" ORDER BY member_id DESC; #여성만(맨위가 최근)
+
+# 날짜
+SELECT * FROM MEMBER ORDER BY member_date ASC; #날짜 순
+SELECT * FROM MEMBER ORDER BY member_date DESC;#날짜 역순
+SELECT * FROM MEMBER WHERE member_date BETWEEN "2019-01-01" AND "2019-12-31"; # 날짜 범위
+
+#조건 2개 (성별-남성, 연령 별)
+SELECT * FROM MEMBER WHERE member_sex = '남성' AND member_age ="13세이하" ORDER BY member_id DESC;
+SELECT * FROM MEMBER WHERE member_sex = '남성' AND member_age ="20대" ORDER BY member_id DESC;
+
+
+#조건 2개 (성별-여성, 연령 별)
+SELECT * FROM MEMBER WHERE member_sex = '여성' AND member_age ="13세이하" ORDER BY member_id DESC;
+SELECT * FROM MEMBER WHERE member_sex = '여성' AND member_age ="20대" ORDER BY member_id DESC;
+
+
+#조건 2개 (연령, 백신 별)
+SELECT * FROM MEMBER WHERE member_age="13세이하" AND member_vac="독+대" ORDER BY member_id DESC;
+
+#조건 2개 (성별, 백신 별)
+SELECT * FROM MEMBER WHERE member_sex="남성" AND member_vac="독+대" ORDER BY member_id DESC;
+
+
+#집계하기
+SELECT COUNT(*) FROM MEMBER; #환자수 OR 데이터 갯수
+SELECT COUNT(CASE WHEN member_sex='남성' THEN 1 END ) AS '남성회원수'  FROM MEMBER; #전체 남자환자
+SELECT COUNT(CASE WHEN member_sex='여성' THEN 1 END ) AS '여성회원수'  FROM MEMBER; #전체 여자환자
+SELECT COUNT(CASE WHEN member_age="13세이하" AND member_vac='독-Free' THEN 1 END) AS '13세이하/독-Free 환자수' FROM MEMBER; #나이 ,백신별 총 수
+
+
